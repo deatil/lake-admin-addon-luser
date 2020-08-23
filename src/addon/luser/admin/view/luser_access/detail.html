@@ -1,0 +1,80 @@
+{extend name="$lake_admin_layout"/}
+
+{block name="main"}
+<div class="layui-card">
+    <div class="layui-card-header layui-bg-cyan">记录详情</div>
+    <div class="layui-card-body">
+        <div class="table-responsive">
+            <table class="layui-table">
+                <colgroup>
+                    <col width="200">
+                    <col>
+                </colgroup>
+          
+                <thead>
+                    <tr>
+                        <td>名称</td>
+                        <td>内容</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>记录ID</td>
+                        <td>{$data.id}</td>
+                    </tr>
+                    <tr>
+                        <td>授权账号ID</td>
+                        <td>{$data.user.id}</td>
+                    </tr>
+                    <tr>
+                        <td>授权账号</td>
+                        <td>{$data.user.username}</td>
+                    </tr>
+                    <tr>
+                        <td>授权账号昵称</td>
+                        <td>{$data.user.nickname}</td>
+                    </tr>
+                    <tr>
+                        <td>Token</td>
+                        <td>{$data.token}</td>
+                    </tr>
+                    <tr>
+                        <td>Token过期时间</td>
+                        <td>{:date('Y-m-d H:i:s', $data['expire_time'])}</td>
+                    </tr>
+                    <tr>
+                        <td>是否退出</td>
+                        <td>
+                            {if $data['is_logout'] == 1}
+                                <span class='layui-badge-dot layui-bg-orange'></span>
+                                <span class='text-orange'>已退出</span>
+                            {else/}
+                                <span class='layui-badge-dot layui-bg-green'></span>
+                                <span class='text-green'>在线</span>
+                            {/if}
+                        </td>
+                    </tr>
+                    {if $data['is_logout'] == 1}
+                    <tr>
+                        <td>退出时间</td>
+                        <td>{:date('Y-m-d H:i:s', $data['logout_time'])}</td>
+                    </tr>
+                    <tr>
+                        <td>退出IP</td>
+                        <td>{$data.logout_ip}</td>
+                    </tr>
+                    {/if}
+                    <tr>
+                        <td>授权记录时间</td>
+                        <td>{:date('Y-m-d H:i:s', $data['add_time'])}</td>
+                    </tr>
+                    <tr>
+                        <td>授权记录IP</td>
+                        <td>{$data.add_ip}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{/block}

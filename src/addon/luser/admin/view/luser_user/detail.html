@@ -1,0 +1,164 @@
+{extend name="$lake_admin_layout"/}
+
+{block name="main"}
+<div class="layui-card">
+    <div class="layui-card-header layui-bg-cyan">用户详情</div>
+    <div class="layui-card-body">
+        <div class="table-responsive">
+            <table class="layui-table">
+                <colgroup>
+                    <col width="200">
+                    <col>
+                </colgroup>
+          
+                <thead>
+                    <tr>
+                        <td>名称</td>
+                        <td>内容</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>ID</td>
+                        <td class="break-all">{$data.id}</td>
+                    </tr>
+                    <tr>
+                        <td>名称</td>
+                        <td class="break-all">{$data.username}</td>
+                    </tr>
+                    <tr>
+                        <td>昵称</td>
+                        <td class="break-all">{$data.nickname}</td>
+                    </tr>
+                    <tr>
+                        <td>头像</td>
+                        <td>
+                            <img src="{:lake_get_file_path($data['avatar'])}" alt="{$data.nickname}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>性别</td>
+                        <td>
+                            {if $data['sex'] == 2}
+                                <span class="layui-badge layui-bg-green">女</span>
+                            {elseif $data['sex'] == 1}
+                                <span class="layui-badge layui-bg-green">男</span>
+                            {else}
+                                <span class="layui-badge layui-bg-green">未知</span>
+                            {/if}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>生日</td>
+                        <td>{:date('Y-m-d', $data['birthday'])}</td>
+                    </tr>
+                    <tr>
+                        <td>邮箱</td>
+                        <td>{$data['email']}</td>
+                    </tr>
+                    <tr>
+                        <td>邮箱验证</td>
+                        <td>
+                            {if $data['email_validated'] == 1}
+                                <span class='layui-badge-dot layui-bg-green'></span>
+                                <span class='text-green'>已验证</span>
+                            {else/}
+                                <span class='layui-badge-dot layui-bg-orange'></span>
+                                <span class='text-orange'>未验证</span>
+                            {/if}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>电话</td>
+                        <td>{$data['phone']}</td>
+                    </tr>
+                    <tr>
+                        <td>电话验证</td>
+                        <td>
+                            {if $data['phone_validated'] == 1}
+                                <span class='layui-badge-dot layui-bg-green'></span>
+                                <span class='text-green'>已验证</span>
+                            {else/}
+                                <span class='layui-badge-dot layui-bg-orange'></span>
+                                <span class='text-orange'>未验证</span>
+                            {/if}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>QQ</td>
+                        <td>{$data['qq']|default='--'}</td>
+                    </tr>
+                    <tr>
+                        <td>身份地址</td>
+                        <td>{$data['province']} / {$data['city']} / {$data['district']}</td>
+                    </tr>
+                    <tr>
+                        <td>用户备注</td>
+                        <td>{$data['remark']|default=''}</td>
+                    </tr>
+                    <tr>
+                        <td>上次活动时间</td>
+                        <td>
+                            {:date('Y-m-d H:i:s', $data['last_active'])}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>上次活动IP</td>
+                        <td>
+                            {$data['last_ip']|default='--'}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>锁定</td>
+                        <td>
+                            {if $data['is_lock'] == 1}
+                                <span class='layui-badge-dot layui-bg-orange'></span>
+                                <span class='text-orange'>已锁定</span>
+                            {else/}
+                                <span class='layui-badge-dot layui-bg-green'></span>
+                                <span class='text-green'>正常</span>
+                            {/if}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>状态</td>
+                        <td>
+                            {if $data['status'] == 1}
+                                <span class='layui-badge-dot layui-bg-green'></span>
+                                <span class='text-green'>启用</span>
+                            {else/}
+                                <span class='layui-badge-dot layui-bg-orange'></span>
+                                <span class='text-orange'>禁用</span>
+                            {/if}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>最后更新时间</td>
+                        <td>
+                            {:date('Y-m-d H:i:s', $data['edit_time'])}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>最后更新IP</td>
+                        <td>
+                            {$data['edit_ip']|default='--'}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>添加时间</td>
+                        <td>
+                            {:date('Y-m-d H:i:s', $data['add_time'])}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>添加IP</td>
+                        <td>
+                            {$data['add_ip']|default='--'}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{/block}

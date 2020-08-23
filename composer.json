@@ -1,0 +1,39 @@
+{
+    "name": "lake/lake-admin-addon-luser",
+    "description": "The lake-admin-addon-luser is an addon package for lake-admin.",
+    "license": "Apache-2.0",
+    "type": "library",
+    "keywords": [
+        "lake",
+        "admin",
+        "lake-admin",
+        "addon",
+        "user",
+        "luser"
+    ],
+    "homepage": "https://github.com/deatil",
+    "authors": [
+        {
+            "name": "deatil",
+            "email": "deatil@github.com",
+            "homepage": "https://github.com/deatil"
+        }
+    ],
+    "require": {
+        "php": ">=7.1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "app\\luser\\": "src/addon/luser"
+        },
+        "files": [
+        ]
+    },
+    "extra": {
+        "think":{
+            "services":[
+                "app\\luser\\boot\\Service"
+            ]
+        }
+    }
+}

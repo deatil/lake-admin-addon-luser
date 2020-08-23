@@ -1,0 +1,232 @@
+{extend name="$lake_admin_layout"/}
+
+{block name="main"}
+<div class="layui-card layui-anim layui-anim-upbit" ng-app="hd" ng-controller="ctrl">
+    <div class="layui-card-header layui-bg-cyan">编辑用户</div>
+    <div class="layui-card-body">
+        <form class="layui-form" method="post">
+            
+            <div class="layui-form-item">
+                <label class="layui-form-label">
+                    <span class="text-red font-weight-bold">*</span>
+                    账号
+                </label>
+                <div class="layui-input-block w300">
+                    <input type="text" name="username" value="{$info.username}" lay-verify="required" placeholder="请输入用户账号" class="layui-input">
+                </div>
+                <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">
+                        必填：用户账号，账号只能为字母、下划线加数字，并且仅能字母开头
+                    </div>
+                </div>
+            </div>
+            
+            <div class="layui-form-item">
+                <label class="layui-form-label">
+                    <span class="text-red font-weight-bold">*</span>
+                    昵称
+                </label>
+                <div class="layui-input-block w300">
+                    <input type="text" name="nickname" value="{$info.nickname}" lay-verify="required" placeholder="请输入用户昵称" class="layui-input">
+                </div>
+                <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">
+                        必填：用户昵称
+                    </div>
+                </div>
+            </div>
+            
+            <div class="layui-form-item">
+                <label class="layui-form-label">头像</label>
+                <div class="layui-input-inline">
+                    <div class="js-upload-image">
+                        {php}echo \app\admin\service\Form::images('avatar', '', $info['avatar']){/php}
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">性别</label>
+                <div class="layui-input-block w350">
+                    <input type="radio" name="sex" value="1" title="男生" {if $info.sex==1}checked{/if}>
+                    <input type="radio" name="sex" value="2" title="女生" {if $info.sex==2}checked{/if}>
+                    <input type="radio" name="sex" value="0" title="未知" {if empty($info['sex']) || $info.sex==0}checked{/if}>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">生日</label>
+                <div class="layui-input-block w350">
+                    <input type="text" name="birthday" value="{:date('Y-m-d', $info['birthday'])}" class="layui-input">
+                </div>
+                <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">
+                        用户生日填写格式：年-月-日
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">邮箱</label>
+                <div class="layui-input-block w350">
+                    <input type="text" name="email" value="{$info.email|default=''}" class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">邮箱验证</label>
+                <div class="layui-input-block w350">
+                    <input type="radio" name="email_validated" value="1" title="通过" {if $info.email_validated==1}checked{/if}>
+                    <input type="radio" name="email_validated" value="0" title="未验证" {if $info.email_validated==0}checked{/if}>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">电话</label>
+                <div class="layui-input-block w350">
+                    <input type="text" name="phone" value="{$info.phone|default=''}" class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">电话验证</label>
+                <div class="layui-input-block w350">
+                    <input type="radio" name="phone_validated" value="1" title="通过" {if $info.phone_validated==1}checked{/if}>
+                    <input type="radio" name="phone_validated" value="0" title="未验证" {if $info.phone_validated==0}checked{/if}>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">QQ</label>
+                <div class="layui-input-block w350">
+                    <input type="text" name="qq" value="{$info.qq|default=''}" class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item" id="area-picker">
+                <div class="layui-form-label">身份地址</div>
+                <div class="layui-input-block">
+                    <div class="layui-input-inline">
+                        <select name="province" class="province-selector" data-value="{$info.province}" lay-filter="province-1">
+                            <option value="">请选择省</option>
+                        </select>
+                    </div>
+                    <div class="layui-input-inline">
+                        <select name="city" class="city-selector" data-value="{$info.city}" lay-filter="city-1">
+                            <option value="">请选择市</option>
+                        </select>
+                    </div>
+                    <div class="layui-input-inline">
+                        <select name="district" class="county-selector" data-value="{$info.district}" lay-filter="county-1">
+                            <option value="">请选择区</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">锁定</label>
+                <div class="layui-input-block w350">
+                    <input type="radio" name="is_lock" value="0" title="正常" {if $info.is_lock==0}checked{/if}>
+                    <input type="radio" name="is_lock" value="1" title="已锁定" {if $info.is_lock==1}checked{/if}>
+                </div>
+                <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">
+                        用户锁定状态，已锁定用户将不能访问及使用系统相关功能
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">状态</label>
+                <div class="layui-input-block w350">
+                    <input type="radio" name="status" value="1" title="正常" {if $info.status==1}checked{/if}>
+                    <input type="radio" name="status" value="0" title="禁止" {if $info.status==0}checked{/if}>
+                </div>
+            </div>
+
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">用户备注</label>
+                <div class="layui-input-block w350">
+                    <textarea name="remark" placeholder="请输入用户备注" class="layui-textarea">{$info.remark}</textarea>
+                </div>
+                <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">
+                        用户备注，仅管理员可看
+                    </div>
+                </div>
+            </div>
+
+            <input type="hidden" value="{$info.id}" name="id" />
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button type="button" class="layui-btn" lay-submit="" lay-filter="submit">立即提交</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{/block}
+
+{block name="script"}
+<script id="fieldlist_main" type="text/html">
+    <dl class="fieldlist layui-fieldlist">
+        <dd class="fieldlist-head">
+            <span>字段</span>
+            <span>内容</span>
+        </dd>
+        <dd class="fieldlist-btns">
+            <a href="javascript:;" class="layui-btn layui-btn-sm layui-btn-success btn-append">
+                <i class="iconfont icon-add"></i> 添加
+            </a>
+        </dd>
+    </dl>
+</script>
+<script id="fieldlist_tpl" type="text/html">
+    <dd class="fieldlist-item">
+        <ins><input type="text" data-name="{{d.name}}[{{d.index}}][key]" value="{{d.row.key?d.row.key:''}}" placeholder="填写字段" class="layui-input"/></ins>
+        <ins><input type="text" data-name="{{d.name}}[{{d.index}}][value]" value="{{d.row.value?d.row.value:''}}" placeholder="填写内容" class="layui-input"/></ins>
+        
+        <span class="layui-btn layui-btn-sm layui-btn-danger btn-remove"><i class="iconfont icon-close1"></i></span>
+        <span class="layui-btn layui-btn-sm layui-btn-primary btn-dragsort"><i class="iconfont icon-yidong"></i></span>
+    </dd>
+</script>
+<script>
+layui.use(['form', 'layer', 'laydate', 'layarea_lc'], function () {
+    var form = layui.form, 
+        layer = layui.layer,
+        $ = layui.jquery,
+        layarea_lc = layui.layarea_lc,
+        laydate = layui.laydate;
+        
+    laydate.render({
+        elem: '[name="birthday"]',
+    });
+    
+    layarea_lc.render({
+        elem: '#area-picker',
+        //不填均为code类型
+        name: 'name',
+        change: function (res) {
+            //选择结果
+            console.log(res);
+        }
+    });
+
+    form.on('submit(submit)', function (data) {
+        // 提交到方法 默认为本身
+        var loading = layer.load(1, {shade: [0.1, '#fff']});
+        $.post("", data.field, function (res) {
+            layer.close(loading);
+            if (res.code > 0) {
+                layer.msg(res.msg, {time: 1800, icon: 1}, function () {
+                    parent.location.reload();
+                });
+            } else {
+                layer.msg(res.msg, {time: 1800, icon: 2});
+            }
+        });
+    })
+});
+</script>
+{/block}

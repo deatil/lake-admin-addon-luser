@@ -1,0 +1,114 @@
+{extend name="$lake_admin_layout"/}
+
+{block name="main"}
+<div class="layui-card layui-anim layui-anim-upbit" ng-app="hd" ng-controller="ctrl">
+    <div class="layui-card-header layui-bg-cyan">设置</div>
+    <div class="layui-card-body">
+        <form class="layui-form" method="post">
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">授权方式</label>
+                <div class="layui-input-block w500">
+                    <input type="radio" name="access_type" value="jwt" title="jwt" {if $setting.access_type == 'jwt'}checked="checked"{/if}>
+                    <input type="radio" name="access_type" value="token" title="普通token" {if $setting.access_type == 'token'}checked="checked"{/if}>
+                </div>
+                <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">
+                        设置授权方式，包括：jwt和普通token
+                    </div>
+                </div>
+            </div>
+            
+            <div class="layui-form-item">
+                <label class="layui-form-label">JWT发布者</label>
+                <div class="layui-input-block w500">
+                    <input type="text" name="jwt_iss" value="{$setting.access_type}" lay-verify="required" placeholder="请输入内容" class="layui-input">
+                </div>
+            </div>
+            
+            <div class="layui-form-item">
+                <label class="layui-form-label">JWT接收者</label>
+                <div class="layui-input-block w500">
+                    <input type="text" name="jwt_aud" value="{$setting.jwt_aud}" lay-verify="required" placeholder="请输入内容" class="layui-input">
+                </div>
+            </div>
+            
+            <div class="layui-form-item">
+                <label class="layui-form-label">JWT标识</label>
+                <div class="layui-input-block w500">
+                    <input type="text" name="jwt_tokenid" value="{$setting.jwt_tokenid}" lay-verify="required" placeholder="请输入内容" class="layui-input">
+                </div>
+            </div>
+            
+            <div class="layui-form-item">
+                <label class="layui-form-label">JWT秘钥</label>
+                <div class="layui-input-block w500">
+                    <input type="text" name="jwt_secrect" value="{$setting.jwt_secrect}" lay-verify="required" placeholder="请输入内容" class="layui-input">
+                </div>
+            </div>
+            
+            <div class="layui-form-item">
+                <label class="layui-form-label">JWT过期时间</label>
+                <div class="layui-input-block w500">
+                    <input type="text" name="jwt_exptime" value="{$setting.jwt_exptime}" lay-verify="required" placeholder="请输入内容" class="layui-input">
+                </div>
+            </div>
+            
+            <div class="layui-form-item">
+                <label class="layui-form-label">JWT冻结时间</label>
+                <div class="layui-input-block w500">
+                    <input type="text" name="jwt_notbeforetime" value="{$setting.jwt_notbeforetime}" lay-verify="required" placeholder="请输入内容" class="layui-input">
+                </div>
+                <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">
+                        创建token后在多少秒内无法使用
+                    </div>
+                </div>
+            </div>
+            
+            <div class="layui-form-item">
+                <label class="layui-form-label">Access过期时间</label>
+                <div class="layui-input-block w500">
+                    <input type="text" name="access_exptime" value="{$setting.access_exptime}" lay-verify="required" placeholder="请输入内容" class="layui-input">
+                </div>
+                <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">
+                        普通Token的过期时间
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button type="button" class="layui-btn" lay-submit="" lay-filter="submit">保存设置</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{/block}
+
+{block name="script"}
+<script>
+layui.use(['form', 'layer'], function () {
+    var form = layui.form, layer = layui.layer,$= layui.jquery;
+
+    form.on('submit(submit)', function (data) {
+        // 提交到方法 默认为本身
+        var loading = layer.load(1, {shade: [0.1, '#fff']});
+        $.post("", data.field, function (res) {
+            layer.close(loading);
+            if (res.code > 0) {
+                layer.msg(res.msg, {time: 1800, icon: 1}, function () {
+                    location.href = res.url;
+                });
+            } else {
+                layer.msg(res.msg, {time: 1800, icon: 2});
+            }
+        }).error(function() {
+            layer.close(loading);
+        });
+    })
+});
+</script>
+{/block}

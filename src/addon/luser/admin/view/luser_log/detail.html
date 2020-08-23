@@ -1,0 +1,66 @@
+{extend name="$lake_admin_layout"/}
+
+{block name="main"}
+<div class="layui-card">
+    <div class="layui-card-header layui-bg-cyan">日志详情</div>
+    <div class="layui-card-body">
+        <div class="table-responsive">
+            <table class="layui-table">
+                <colgroup>
+                    <col width="200">
+                    <col>
+                </colgroup>
+          
+                <thead>
+                    <tr>
+                        <td>名称</td>
+                        <td>内容</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>日志ID</td>
+                        <td>{$data.id}</td>
+                    </tr>
+                    <tr>
+                        <td>登陆账号ID</td>
+                        <td>{$data.user.id}</td>
+                    </tr>
+                    <tr>
+                        <td>登陆账号</td>
+                        <td>{$data.user.username}</td>
+                    </tr>
+                    <tr>
+                        <td>登陆账号昵称</td>
+                        <td>{$data.user.nickname}</td>
+                    </tr>
+                    <tr>
+                        <td>登陆时间</td>
+                        <td>{:date('Y-m-d H:i:s', $data['login_time'])}</td>
+                    </tr>
+                    <tr>
+                        <td>登陆IP</td>
+                        <td>{$data.login_ip}</td>
+                    </tr>
+                    <tr>
+                        <td>登陆客户端</td>
+                        <td>{$data.login_useragent}</td>
+                    </tr>
+                    <tr>
+                        <td>登陆来源</td>
+                        <td>{$data.login_referer}</td>
+                    </tr>
+                    <tr>
+                        <td>记录时间</td>
+                        <td>{:date('Y-m-d H:i:s', $data['add_time'])}</td>
+                    </tr>
+                    <tr>
+                        <td>记录IP</td>
+                        <td>{$data.add_ip}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{/block}

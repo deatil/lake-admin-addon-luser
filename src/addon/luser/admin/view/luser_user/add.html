@@ -1,0 +1,82 @@
+{extend name="$lake_admin_layout"/}
+
+{block name="main"}
+<div class="layui-card layui-anim layui-anim-upbit">
+    <div class="layui-card-header layui-bg-cyan">添加用户</div>
+    <div class="layui-card-body">
+        <form class="layui-form" method="post">
+            <div class="layui-form-item">
+                <label class="layui-form-label">
+                    <span class="text-red font-weight-bold">*</span>
+                    账号
+                </label>
+                <div class="layui-input-block w300">
+                    <input type="text" name="username" lay-verify="required" placeholder="请输入用户账号" class="layui-input">
+                </div>
+                <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">
+                        必填：用户账号，账号只能为字母、下划线加数字，并且仅能字母开头
+                    </div>
+                </div>
+            </div>
+            
+            <div class="layui-form-item">
+                <label class="layui-form-label">
+                    <span class="text-red font-weight-bold">*</span>
+                    昵称
+                </label>
+                <div class="layui-input-block w300">
+                    <input type="text" name="nickname" lay-verify="required" placeholder="请输入用户昵称" class="layui-input">
+                </div>
+                <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">
+                        必填：用户昵称
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">状态</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="status" value="1" checked="checked" title="启用">
+                        <input type="radio" name="status" value="0" title="禁用">
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button type="button" class="layui-btn" lay-submit="" lay-filter="submit">立即提交</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{/block}
+
+{block name="script"}
+<script>
+layui.use(['form', 'layer'], function () {
+    var form = layui.form, layer = layui.layer,$= layui.jquery;
+    
+    form.on('submit(submit)', function (data) {
+        // 提交到方法 默认为本身
+        var loading = layer.load(1, {shade: [0.1, '#fff']});
+        $.post("", data.field, function (res) {
+            layer.close(loading);
+            if (res.code == 1) {
+                layer.msg(res.msg, {time: 1800, icon: 1}, function () {
+                    parent.location.reload();
+                });
+            } else {
+                layer.msg(res.msg, {time: 1800, icon: 2});
+            }
+        }).error(function() {
+            layer.close(loading);
+            layer.msg('访问错误', {time: 1800, icon: 2});
+        });
+    })
+});
+</script>
+{/block}

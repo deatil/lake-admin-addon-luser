@@ -1,0 +1,134 @@
+{extend name="$lake_admin_layout"/}
+
+{block name="main"}
+<div class="layui-card">
+    <div class="layui-card-header layui-bg-cyan">授权记录</div>
+    <div class="layui-card-body">
+        <blockquote class="layui-elem-quote">
+            <form class="layui-form lake-admin-search-form" method="get">
+                <div class="layui-inline">
+                    <input type="text" class="layui-input lake-admin-search-date" id="laydate" placeholder="搜索时间范围">
+                </div>
+                <div class="layui-inline w120">
+                    <select name="field" class="lake-admin-search-field">
+                        <option value="">搜索类型</option>
+                        <option value="user_id">用户ID</option>
+                    </select>
+                </div>
+                <div class="layui-inline">
+                    <input type="text" name="keyword" class="layui-input lake-admin-search-val" placeholder="请输入关键字">
+                </div>
+                <div class="layui-inline">
+                    <a class="layui-btn lake-admin-search-btn" data-type="search">搜索</a>
+                </div>
+                <div class="layui-inline">
+                    <a class="layui-btn" href="{:url('index')}">查看全部</a>
+                </div>
+            </form>
+        </blockquote>
+        
+        <table class="layui-hide" id="table" lay-filter="table"></table>
+    </div>
+</div>
+{/block}
+
+{block name="script"}
+<script type="text/html" id="toolbarLog">
+    <div class="layui-btn-container">
+        {if lake_check_auth('admin/LuserAccess/clear')}
+            <button class="layui-btn layui-btn-sm layui-btn-danger ajax-post confirm" 
+                data-post="{}" 
+                data-href="{:url('clear')}">删除过期记录</button>
+        {/if}
+    </div>
+</script>
+
+<script type="text/html" id="userTpl">
+    {{ d.user.username }}
+</script>
+<script type="text/html" id="expire_time">
+    {{!d.expire_time?'':layui.util.toDateString(d.expire_time * 1000, 'yyyy-MM-dd HH:mm:ss') }}
+</script>
+<script type="text/html" id="is_logout">
+    {{ d.is_logout ? '<span class="layui-badge layui-bg-cyan">已退出</span>' : '<span class="layui-badge layui-bg-green">在线</span>' }}
+</script>
+<script type="text/html" id="add_time">
+    {{!d.add_time?'':layui.util.toDateString(d.add_time * 1000, 'yyyy-MM-dd HH:mm:ss') }}
+</script>
+
+<script type="text/html" id="actionToolbar">
+    {if lake_check_auth('admin/LuserAccess/detail')}
+        <a href='{:url("detail")}?id={{ d.id }}' class="layui-btn layui-btn-xs layui-iframe" title="记录详情">详情</a>
+    {/if}
+    {if lake_check_auth('admin/LuserAccess/logout')}
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="logout">登出</a>
+    {/if}
+</script>
+
+<script>
+layui.use(['table', 'laydate'], function() {
+    var table = layui.table,
+        $ = layui.$,
+        laydate = layui.laydate;
+        
+    laydate.render({
+        elem: '#laydate',
+        range: true,
+    });
+        
+    var tableIn = table.render({
+        elem: '#table',
+        toolbar: '#toolbarLog',
+        url: '{:url("index")}',
+        cols: [
+            [
+                { field: 'id', width: 80, title: 'ID', align: "center", sort: true },
+                { field: 'user', width: 100, title: '账号', templet: '#userTpl' },
+                { field: 'token', minWidth: 180, title: 'Token' },
+                { field: 'expire_time', width: 180, title: '过期时间', templet: '#expire_time' },
+                { field: 'is_logout', width: 80, title: '登出', align: "center", templet: '#is_logout' },
+                { field: 'add_time', width: 180, title: '授权时间', templet: '#add_time' },
+                { width: 120, title: '操作', templet: '#actionToolbar' },
+            ]
+        ],
+        page: {},
+        limit: 20
+    });
+    
+    // 搜索
+    $(".lake-admin-search-btn").on("click", function() {
+        table.reload("table", {
+            page: {
+                curr: 1
+            },
+            where: {
+                search_field: $(".lake-admin-search-field").val(),
+                keyword: $(".lake-admin-search-val").val(),
+                filter_time: 'add_time',
+                filter_time_range: $("#laydate").val()
+            }
+        })
+    });
+
+    table.on('tool(table)', function(obj) {
+        var data = obj.data;
+        if (obj.event === 'logout') {
+            layer.confirm('您确定要登出该用户登陆状态吗？', function(index){
+                var loading = layer.load(1, {shade: [0.1, '#fff']});
+                $.post("{:url('logout')}",{id:data.id},function(res){
+                    layer.close(loading);
+                    if(res.code===1){
+                        layer.msg(res.msg,{time:1000,icon:1});
+                        tableIn.reload();
+                    }else{
+                        layer.msg('操作失败！',{time:1000,icon:2});
+                    }
+                });
+                layer.close(index);
+            });
+        }
+    });
+    
+});
+</script>
+{/block}
