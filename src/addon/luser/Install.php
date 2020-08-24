@@ -2,7 +2,7 @@
 
 namespace app\luser;
 
-use app\admin\module\Module;
+use lake\admin\module\Module;
 
 /**
  * 安装脚本

@@ -8,7 +8,7 @@ use think\Response;
 use think\exception\HttpResponseException;
 use think\facade\Env;
 
-use lake\module\controller\Json as JsonTrait;
+use lake\module\traits\Json as JsonTrait;
 
 use app\luser\service\JwtAuth;
 use app\luser\service\Access;

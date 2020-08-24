@@ -6,7 +6,7 @@ namespace app\api\controller;
 
 use think\App;
 
-use lake\module\controller\Json as JsonTrait;
+use lake\module\traits\Json as JsonTrait;
 
 /**
  * 控制器基础类
