@@ -30,40 +30,19 @@ class JwtAuth extends Jwt
     {
         $config = ConfigModel::getList();
         
-        $this->setAlg(config('luser.jwt_alg', $config['jwt_alg']));
-        $this->setIss(config('luser.jwt_iss', $config['jwt_iss']));
-        $this->setAud(config('luser.jwt_aud', $config['jwt_aud']));
-        $this->setTokenId(config('luser.jwt_tokenid', $config['jwt_tokenid']));
-        $this->setSecrect(config('luser.jwt_secrect', $config['jwt_secrect']));
-        $this->setExpTime(config('luser.jwt_exptime', $config['jwt_exptime']));
-        $this->setNotBeforeTime(config('luser.jwt_notbeforetime', $config['jwt_notbeforetime']));
+        $configInfo = config('luser');
+        $config = array_merge($configInfo, $config);
+
+        $this->setAlg($config['jwt_alg']);
+        $this->setIss($config['jwt_iss']);
+        $this->setAud($config['jwt_aud']);
+        $this->setTokenId($config['jwt_tokenid']);
+        $this->setSecrect($config['jwt_secrect']);
+        $this->setExpTime(intval($config['jwt_exptime']));
+        $this->setNotBeforeTime($config['jwt_notbeforetime']);
     }
 
     // 私有化clone函数
     private function __clone()
     {}
-
-    // 编码jwt token
-    public function encode()
-    {
-        return parent::encode();
-    }
-
-    public function decode()
-    {
-        return parent::decode();
-    }
-
-    // validate
-    public function validate()
-    {
-        return parent::validate();
-    }
-
-    // verify token
-    public function verify()
-    {
-        return parent::verify();
-    }
-
 }
