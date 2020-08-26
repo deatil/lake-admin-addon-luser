@@ -37,7 +37,13 @@ class JwtAuth extends Jwt
         $this->setIss($config['jwt_iss']);
         $this->setAud($config['jwt_aud']);
         $this->setSub($config['jwt_sub']);
-        $this->setJti($config['jwt_jti']);
+        
+        $deviceId = request()->param('device_id');
+        if (!empty($deviceId)) {
+            $this->setJti($deviceId);
+        } else {
+            $this->setJti($config['jwt_jti']);
+        }
         $this->setSecrect($config['jwt_secrect']);
         $this->setExpTime(intval($config['jwt_exptime']));
         $this->setNotBeforeTime($config['jwt_notbeforetime']);
