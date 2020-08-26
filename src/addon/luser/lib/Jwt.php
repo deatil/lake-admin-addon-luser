@@ -25,6 +25,9 @@ class Jwt
     // claim audience
     private $audience = '';
 
+    // subject
+    private $subject = '';
+
     // secrect
     private $secrect = '';
 
@@ -64,10 +67,17 @@ class Jwt
         return $this;
     }
 
-    // 设置tokenId
-    public function setTokenId($tokenId)
+    // 设置subject
+    public function setSub($subject)
     {
-        $this->tokenId = $tokenId;
+        $this->subject = $subject;
+        return $this;
+    }
+
+    // 设置jti
+    public function setJti($jti)
+    {
+        $this->jti = $jti;
         return $this;
     }
 
@@ -125,20 +135,27 @@ class Jwt
     // 编码jwt token
     public function encode()
     {
+        $Builder = new Builder();
+        
+        $Builder->withHeader('alg', $this->alg)
+        $Builder->issuedBy($this->issuer) // 发布者
+        $Builder->permittedFor($this->audience) // 接收者
+        
+        if (!empty($this->subject)) {
+            $Builder->relatedTo($this->subject) // 接收者
+        }
+        
+        $Builder->identifiedBy($this->jti) // 对当前token设置的标识
+        $Builder->withClaim('uid', $this->uid)
+        
         $time = time();
+        $Builder->issuedAt($time) // token创建时间
+        $Builder->canOnlyBeUsedAfter($time + 10) // 多少秒内无法使用
+        $Builder->expiresAt($time + $this->expTime) // 过期时间
+        
         $signer = new Sha256();
         $secrect = new Key($this->secrect);
-        $this->token = (new Builder())
-            ->setHeader('alg', $this->alg)
-            ->setIssuer($this->issuer) // 发布者
-            ->setAudience($this->audience) // 接收者
-            ->setId($this->tokenId) // 对当前token设置的标识
-            ->setIssuedAt($time) // token创建时间
-            ->setNotBefore($time + 10) // 多少秒内无法使用
-            ->setExpiration($time + $this->expTime) // 过期时间
-            ->set('uid', $this->uid)
-            ->sign($signer, $secrect)
-            ->getToken();
+        $this->token = $Builder->getToken($signer, $secrect);
 
         return $this;
     }
@@ -161,6 +178,7 @@ class Jwt
         $data->setIssuer($this->issuer);
         $data->setAudience($this->audience);
         $data->setId($this->tokenId);
+        $data->setSubject($this->subject);
         $data->setCurrentTime(time());
 
         return $this->decodeToken->validate($data);

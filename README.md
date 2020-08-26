@@ -1,13 +1,13 @@
-### 用户管理系统
+## 用户管理系统
 
 
-## 项目介绍
+### 项目介绍
 
 *  基于 `lake-admin` 后台管理系统的用户管理模块
 *  用户API认证获取包括jwt和普通token
 
 
-## 使用方法 
+### 使用方法 
 
 *  正确安装了 `lake-admin` 后台
 *  `composer require lake/lake-admin-addon-luser`，然后选择最新版本

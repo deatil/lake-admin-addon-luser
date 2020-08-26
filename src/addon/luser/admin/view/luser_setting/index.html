@@ -24,6 +24,11 @@
                 <div class="layui-input-block w500">
                     <input type="text" name="jwt_iss" value="{$setting.access_type}" lay-verify="required" placeholder="请输入内容" class="layui-input">
                 </div>
+                <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">
+                        在签发token时的标识为：iss
+                    </div>
+                </div>
             </div>
             
             <div class="layui-form-item">
@@ -31,19 +36,34 @@
                 <div class="layui-input-block w500">
                     <input type="text" name="jwt_aud" value="{$setting.jwt_aud}" lay-verify="required" placeholder="请输入内容" class="layui-input">
                 </div>
+                <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">
+                        在签发token时的标识为：aud
+                    </div>
+                </div>
+            </div>
+            
+            <div class="layui-form-item">
+                <label class="layui-form-label">JWT签发主题</label>
+                <div class="layui-input-block w500">
+                    <input type="text" name="jwt_sub" value="{$setting.jwt_sub}" lay-verify="required" placeholder="请输入内容" class="layui-input">
+                </div>
+                <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">
+                        在签发token时的标识为：sub
+                    </div>
+                </div>
             </div>
             
             <div class="layui-form-item">
                 <label class="layui-form-label">JWT标识</label>
                 <div class="layui-input-block w500">
-                    <input type="text" name="jwt_tokenid" value="{$setting.jwt_tokenid}" lay-verify="required" placeholder="请输入内容" class="layui-input">
+                    <input type="text" name="jwt_jti" value="{$setting.jwt_jti}" lay-verify="required" placeholder="请输入内容" class="layui-input">
                 </div>
-            </div>
-            
-            <div class="layui-form-item">
-                <label class="layui-form-label">JWT秘钥</label>
-                <div class="layui-input-block w500">
-                    <input type="text" name="jwt_secrect" value="{$setting.jwt_secrect}" lay-verify="required" placeholder="请输入内容" class="layui-input">
+                <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">
+                        在签发token时的标识为：jti
+                    </div>
                 </div>
             </div>
             
@@ -51,6 +71,11 @@
                 <label class="layui-form-label">JWT过期时间</label>
                 <div class="layui-input-block w500">
                     <input type="text" name="jwt_exptime" value="{$setting.jwt_exptime}" lay-verify="required" placeholder="请输入内容" class="layui-input">
+                </div>
+                <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">
+                        在签发token时的标识为：exp
+                    </div>
                 </div>
             </div>
             
@@ -61,7 +86,7 @@
                 </div>
                 <div class="layui-input-block">
                     <div class="layui-form-mid layui-word-aux">
-                        创建token后在多少秒内无法使用
+                        创建token后在多少秒内无法使用, 标识为：nbf
                     </div>
                 </div>
             </div>

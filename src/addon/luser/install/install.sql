@@ -71,8 +71,8 @@ REPLACE INTO `lake_luser_config` VALUES
 ('access_type','jwt','授权方式，jwt和token'),
 ('jwt_iss','api.xxx.com',NULL),
 ('jwt_aud','lake_app',NULL),
-('jwt_tokenid','sdwert5g',NULL),
-('jwt_secrect','srGd8iwV',NULL),
+('jwt_sub','app',NULL),
+('jwt_jti','sdwert5g',NULL),
 ('jwt_exptime','3600',NULL),
 ('jwt_notbeforetime','10',NULL),
 ('access_exptime','3600',NULL);
