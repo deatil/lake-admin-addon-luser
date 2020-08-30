@@ -25,8 +25,14 @@ class LuserPassport extends LuserBase
         ],
     ];
 
-    /*
+    /**
      * 登陆
+     *
+     * @title 登陆
+     * @method POST
+     * @request {"username":"username","password":"md5(password)"}
+     * @response {"token":"token"}
+     * @listorder 10
      *
      * @create 2020-8-22
      * @author deatil
@@ -92,11 +98,17 @@ class LuserPassport extends LuserBase
         LogModel::record([
             'user_id' => $user['id'],
         ]);
-        $this->successJson('登录成功', ['access_token' => $token]);
+        $this->successJson('登录成功', ['token' => $token]);
     }
 
     /**
-     * 会员注册
+     * 注册
+     *
+     * @title 注册
+     * @method POST
+     * @request {"username":"username","nickname":"nickname","password":"md5(password)"}
+     * @response {"id":"id","username":"username","nickname":"nickname"}
+     * @listorder 5
      *
      * @create 2020-8-22
      * @author deatil
@@ -146,11 +158,15 @@ class LuserPassport extends LuserBase
             'add_ip' => request()->ip(),
         ];
         
-        $id = UserModel::create($data);
-        if ($id === false) {
+        $userInfo = UserModel::create($data);
+        if ($userInfo === false) {
             $this->errorJson('注册失败');
         }
         
-        $this->successJson('注册成功');
+        $this->successJson('注册成功', [
+            'id' => $userInfo->id,
+            'username' => $username,
+            'nickname' => $nickname,
+        ]);
     }
 }

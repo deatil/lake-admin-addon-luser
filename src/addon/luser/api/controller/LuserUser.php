@@ -44,6 +44,9 @@ class LuserUser extends LuserBase
     /**
      * 修改密码
      *
+     * @title 修改密码
+     * @method POST
+     *
      * @create 2020-8-22
      * @author deatil
      */
