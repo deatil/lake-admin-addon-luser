@@ -2,7 +2,7 @@
 
 namespace app\luser;
 
-use lake\Module;
+use Lake\Module;
 
 /**
  * 卸载脚本

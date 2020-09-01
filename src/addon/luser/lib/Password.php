@@ -2,7 +2,7 @@
 
 namespace app\luser\lib;
 
-use lake\Random;
+use Lake\Random;
 
 /**
  * 密码

@@ -2,8 +2,9 @@
 
 namespace app\luser;
 
-use lake\Random;
-use lake\admin\module\Module;
+use Lake\Random;
+
+use Lake\Module;
 
 /**
  * 安装脚本

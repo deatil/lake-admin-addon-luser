@@ -2,7 +2,7 @@
 
 namespace app\luser\service;
 
-use lake\Random;
+use Lake\Random;
 
 use app\luser\model\Access as AccessModel;
 use app\luser\model\Config as ConfigModel;
