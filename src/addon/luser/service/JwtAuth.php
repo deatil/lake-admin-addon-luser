@@ -44,9 +44,13 @@ class JwtAuth extends Jwt
         } else {
             $this->setJti($config['jwt_jti']);
         }
-        $this->setSecrect($config['jwt_secrect']);
         $this->setExpTime(intval($config['jwt_exptime']));
         $this->setNotBeforeTime($config['jwt_notbeforetime']);
+        
+        $this->setSignerType($config['jwt_signer_type']);
+        $this->setSecrect($config['jwt_secrect']);
+        $this->setPrivateKey($config['jwt_private_key']);
+        $this->setPublicKey($config['jwt_public_key']);
     }
 
     // 私有化clone函数

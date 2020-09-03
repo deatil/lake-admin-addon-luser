@@ -31,13 +31,15 @@ class Access
         $token = Random::uuid();
         
         // 过期时间
-        $accessExptime = ConfigModel::getNameValue('access_exptime');
-        $expireTime = config('luser.access_exptime', $accessExptime);
+        $expireTime = config('luser.access_exptime');
+        if (empty($expireTime)) {
+            $expireTime = ConfigModel::getNameValue('access_exptime');
+        }
         
         $status = AccessModel::create([
             'user_id' => $userId,
             'token' => $token,
-            'expire_time' => time() + $expireTime,
+            'expire_time' => time() + (int) $expireTime,
             'add_time' => time(),
             'add_ip' => request()->ip(),
         ]);

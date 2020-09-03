@@ -74,7 +74,9 @@ class LuserPassport extends LuserBase
         if ($accessType == 'jwt') {
             // 获取jwt的句柄
             $jwtAuth = JwtAuth::getInstance();
-            $token = $jwtAuth->setUid($user['id'])->encode()->getToken();
+            $token = $jwtAuth->setClaim([
+                'uid' => $user['id'],
+            ])->encode()->getToken();
             if (empty($token)) {
                 $this->errorJson('登陆失败');
             }

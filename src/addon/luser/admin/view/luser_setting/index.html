@@ -18,6 +18,21 @@
                     </div>
                 </div>
             </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">JWT签名方式</label>
+                <div class="layui-input-block w500">
+                    <input type="radio" name="jwt_signer_type" value="SECRECT" title="SECRECT" {if $setting.jwt_signer_type == 'SECRECT'}checked="checked"{/if}>
+                    <input type="radio" name="jwt_signer_type" value="RSA" title="RSA" {if $setting.jwt_signer_type == 'RSA'}checked="checked"{/if}>
+                </div>
+                <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">
+                        设置签名方式，包括：RSA(RSA and ECDSA) 和 SECRECT
+                        <br />
+                        RSA请在 <span class="layui-badge layui-bg-green">.env</span> 文件设置 <span class="layui-badge layui-bg-green">[luser] jwt_private_key</span> 及 <span class="layui-badge layui-bg-green">[luser] jwt_public_key</span> 设置密钥路径
+                    </div>
+                </div>
+            </div>
             
             <div class="layui-form-item">
                 <label class="layui-form-label">JWT发布者</label>

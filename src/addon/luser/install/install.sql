@@ -75,4 +75,5 @@ REPLACE INTO `lake_luser_config` VALUES
 ('jwt_jti','sdwert5g',NULL),
 ('jwt_exptime','3600',NULL),
 ('jwt_notbeforetime','10',NULL),
+('jwt_signer_type','SECRECT',NULL),
 ('access_exptime','3600',NULL);
