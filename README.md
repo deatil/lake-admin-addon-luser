@@ -18,7 +18,7 @@
 
 | 名称 | 描述 |
 | --- | --- |
-| [cms系统](https://github.com/deatil/lake-cms) | 强大的分类管理，完整的模版开发标签系统，配套的友情链接模块和自定义表单模块，让你的cms简单但高效 |
+| [cms系统](https://github.com/deatil/lake-admin-cms) | 简单高效实用的内容管理系统 |
 | [用户管理](https://github.com/deatil/lake-admin-addon-luser) | 通用的用户管理模块，实现了用户登陆api的token及jwt双认证 |
 | [API接口](https://github.com/deatil/lake-admin-addon-lapi) | 强大的API接口管理系统，支持多种签名算法验证，支持签名字段多个位置存放 |
 | [路由美化](https://github.com/deatil/lake-admin-addon-lroute) | 支持thinkphp自带的多种路由美化设置，自定义你的系统url |
@@ -28,8 +28,7 @@
 
 ### 开源协议
 
-*  `lake-admin` 遵循 `Apache2` 开源协议发布，在保留本系统版权（包括版权文件及系统相关标识，相关的标识需在明显位置标示出来）的情况下提供个人及商业免费使用。  
-*  使用该项目时，请在明显的位置保留该系统的版权标识（标识包括：lake，lake-admin及该系统所属logo），并不得修改后台版权信息。
+*  本项目遵循Apache2开源协议发布，在保留本系统版权的情况下提供个人及商业免费使用。  
 
 
 ### 版权
