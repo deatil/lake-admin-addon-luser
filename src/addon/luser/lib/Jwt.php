@@ -32,7 +32,7 @@ class Jwt
     private $expTime = 3600;
 
     // 时间内不能访问
-    private $notBeforeTime = 10;
+    private $notBeforeTime = 0;
 
     // decode token
     private $decodeToken;
@@ -189,7 +189,7 @@ class Jwt
         
         $time = time();
         $Builder->issuedAt($time); // token创建时间
-        $Builder->canOnlyBeUsedAfter($time + 10); // 多少秒内无法使用
+        $Builder->canOnlyBeUsedAfter($time + $this->notBeforeTime); // 多少秒内无法使用
         $Builder->expiresAt($time + $this->expTime); // 过期时间
         
         if ($this->signerType == 'RSA') {
