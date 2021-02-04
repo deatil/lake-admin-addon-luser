@@ -11,7 +11,7 @@
         "user",
         "luser"
     ],
-    "homepage": "https://github.com/deatil",
+    "homepage": "https://github.com/deatil/lake-admin-addon-luser",
     "authors": [
         {
             "name": "deatil",
@@ -26,13 +26,13 @@
     },
     "autoload": {
         "psr-4": {
-            "app\\luser\\": "src/addon/luser"
+            "app\\luser\\": ""
         }
     },
     "extra": {
         "think":{
             "services":[
-                "app\\luser\\boot\\Service"
+                "app\\luser\\Service"
             ]
         }
     }

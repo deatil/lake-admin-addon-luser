@@ -25,15 +25,13 @@ return [
                 "title" => "设置",
                 "icon" => "icon-setup",
                 "listorder" => 5,
-                "child" => [
-                    [
-                        "route" => "admin/LuserSetting/index",
-                        "method" => "POST",
-                        "type" => 1,
-                        "is_menu" => 0,
-                        "title" => "设置",
-                    ],
-                ],
+            ],
+            [
+                "route" => "admin/LuserSetting/index",
+                "method" => "POST",
+                "type" => 1,
+                "is_menu" => 0,
+                "title" => "设置",
             ],
             [
                 "route" => "admin/LuserUser/index",
